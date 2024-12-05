@@ -3,38 +3,161 @@
   <head>
     {% load static %}
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+     
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #FFCCEA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .center {
+        width: 600px;
+        padding: 50px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 24px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 20px;
+      }
+
+      .txt_field {
+        position: relative;
+        flex: 1;
+      }
+
+      .txt_field input,
+      .txt_field select,
+      .txt_field textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        background:white;
+        transition: all 0.3s;
+      }
+
+      .txt_field textarea {
+        resize: none;
+        height: 80px;
+      }
+
+      .txt_field label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        pointer-events: none;
+        font-size: 14px;
+        color: #aaa;
+        transition: all 0.3s ease;
+      }
+
+      .txt_field input:focus + label,
+      .txt_field select:focus + label,
+      .txt_field textarea:focus + label,
+      .txt_field input:valid + label,
+      .txt_field select:valid + label,
+      .txt_field textarea:valid + label {
+        top: -20px;
+        left: 10px;
+        font-size: 12px;
+        color: #333;
+      }
+
+      .txt_field span {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: #6200ea;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .txt_field input:focus ~ span,
+      .txt_field select:focus ~ span,
+      .txt_field textarea:focus ~ span {
+        transform: scaleX(1);
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 18px;
+        color: #fff;
+        background: crimson;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      input[type="submit"]:hover {
+        background: #5a00d1;
+      }
+
+      @media (max-width: 768px) {
+        .form-row {
+          flex-direction: column;
+        }
+
+        .center {
+          width: 90%;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="center">
       <h1>Register</h1>
 
       {% if messages %}
-          {% for message in messages %}
-              {% if message.tags == 'error' %}
-                  <center><h4 style="color: firebrick;">{{message}}</h4></center>
-              {% else %}
-                  <center><h4 style="color: dodgerblue;">{{message}}</h4></center>
-              {% endif %}
-          {% endfor %}
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+            <center><h4 style="color: firebrick;">{{ message }}</h4></center>
+          {% else %}
+            <center><h4 style="color: dodgerblue;">{{ message }}</h4></center>
+          {% endif %}
+        {% endfor %}
       {% endif %}
-        
-      <form method="POST">
 
+      <form method="POST">
         {% csrf_token %}
-      
-        <div class="txt_field">
+
+        <!-- Personal Information -->
+        <div class="form-row">
+          <div class="txt_field">
             <input type="text" required name="first_name">
             <span></span>
             <label>First Name</label>
           </div>
-
           <div class="txt_field">
             <input type="text" required name="last_name">
             <span></span>
             <label>Last Name</label>
           </div>
+        </div>
 
         <div class="txt_field">
           <input type="text" required name="username">
@@ -42,25 +165,82 @@
           <label>Username</label>
         </div>
 
-        <div class="txt_field">
+        <!-- Contact Information -->
+        <div class="form-row">
+          <div class="txt_field">
             <input type="email" required name="email">
             <span></span>
             <label>Email</label>
           </div>
+          <div class="txt_field">
+            <input type="text" required name="mobile_number">
+            <span></span>
+            <label>Mobile Number</label>
+          </div>
+        </div>
 
+        <div class="form-row">
+          <div class="txt_field">
+            <input type="text" required name="whatsapp_number">
+            <span></span>
+            <label>WhatsApp Number</label>
+          </div>
+          <div class="txt_field">
+            <input type="text" required name="company_name">
+            <span></span>
+            <label>Company Name</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="txt_field">
+            <input type="text" required name="registration_number">
+            <span></span>
+            <label>Registration Number</label>
+          </div>
+          <div class="txt_field">
+            <input type="text" required name="vat_number">
+            <span></span>
+            <label>VAT Number</label>
+          </div>
+        </div>
+
+        <div class="txt_field">
+          <textarea name="address" required></textarea>
+          <span></span>
+          <label>Address</label>
+        </div>
+
+        <!-- Role and Designation -->
+        <div class="form-row">
+          <div class="txt_field">
+            <select name="role" required>
+              <option value="" disabled selected>Select Role</option>
+              <option value="Owner">Owner</option>
+              <option value="Director">Director</option>
+              <option value="Finance Manager">Finance Manager</option>
+              <option value="General Manager">General Manager</option>
+            </select>
+          </div>
+          <div class="txt_field">
+            <input type="text" required name="designation">
+            <span></span>
+            <label>Designation</label>
+          </div>
+        </div>
+
+        <!-- Password -->
         <div class="txt_field">
           <input type="password" required name="password">
           <span></span>
           <label>Password</label>
-        </div>    
-
-        <!-- <div class="pass">Forgot Password?</div> -->
-        <input type="submit" value="Register">
-        <div class="signup_link">
-          Already have an account? <a href="{% url 'login' %}">Login</a>
         </div>
-      </form>
-    </div>
 
+        <input type="submit" value="Register">
+      </form>
+      <div class="sigin_link">
+       All ready have an accound? <a href="{% url 'login' %}">Login</a>
+      </div>
+    </div>
   </body>
 </html>
