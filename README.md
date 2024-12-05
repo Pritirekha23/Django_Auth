@@ -19,7 +19,7 @@
 - Users can request a password reset by entering a valid registered email.
 - A reset link will be sent to the provided email address.
 
-![alt text](image-1.png)
+![alt text](img/image-1.png)
 
 ![alt text](image-2.png)
 ### email sent msg
