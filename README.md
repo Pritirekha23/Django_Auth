@@ -11,7 +11,7 @@
 ##  Features in Detail
 ### User Registration
 
-![alt text](<Screenshot 2024-12-05 231641.png>)
+![alt text](<img/>Screenshot 2024-12-05 231641.png>)
 ### User Login
 - Registered users can log in using their username and password. Invalid credentials will prompt a feedback message.
 ![alt text](img/image.png)
